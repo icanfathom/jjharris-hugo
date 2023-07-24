@@ -1,0 +1,11 @@
+{{ $related := first 3 (.Site.RegularPages.Related .) }}
+{{ with $related }}
+    <div class="wid-100pc mar-btm-4 pad-y-30 bck-dark print-dis-none">
+        <h2 class="mar-btm-20 txt-ctr">Related</h2>
+        <div class="dis-flex flx-main-ctr flx-wrap">
+            {{ range . }}
+            {{ .Render "box-summary" }}
+            {{ end }}
+        </div>
+    </div>
+{{ end }}

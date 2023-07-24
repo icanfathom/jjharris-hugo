@@ -1,0 +1,21 @@
+{{ $curLink := .RelPermalink }}
+{{ if .Params.series }}
+    <div class="dis-flex flx-col flx-cross-ctr wid-100pc mar-btm-4 pad-y-30 bck-dark txt-ctr print-dis-none">
+        <h2 class="mar-0">
+            <a href="/series/{{ urlize (index .Params.series 0) }}">In this series</a>
+        </h2>
+        <ul class="mar-y-10 txt-accent">
+            {{ range (where .Site.Pages "Params.series" "intersect" .Params.series).Reverse }}
+                {{ if eq .RelPermalink $curLink }}
+                    <li>
+                        <span>{{ .Title }}</span>
+                    </li>
+                {{ else }}
+                    <li class="lst-circle">
+                        <a href="{{ .RelPermalink }}" class="txt-accent lnk-no-underline">{{ .Title }}</a>
+                    </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+    </div>
+{{ end }}

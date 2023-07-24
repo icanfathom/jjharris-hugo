@@ -1,0 +1,45 @@
+{{ $prev := index (where (where .Site.Pages "Params.categories" "intersect" .Params.categories) "Date" "lt" .PublishDate) 0 }}
+{{ $next := index (where (where .Site.Pages "Params.categories" "intersect" .Params.categories) "Date" "gt" .PublishDate).Reverse 0 }}
+
+{{ if or (ne $prev nil) (ne $next nil) }}
+<div class="_section-nav dis-flex flx-wrap wid-100pc mar-btm-4 bck-dark print-dis-none">
+    <div class="flx-grow wid-100pc md-wid-50pc hgt-100 {{ cond (eq $prev nil) " dis-none md-dis-block" "" }}"> {{/* Hide
+        empty div only on mobile. Needed for proper spacing on desktop. */}}
+        {{ with $prev }}
+        <a href="{{ .RelPermalink }}"
+            class="dis-flex flx-main-ctr md-flx-main-ctr flx-cross-ctr pad-lft-30 wid-100pc hgt-100pc pad-20 txt-accent lnk-no-underline hov-bck-dark-lghtn-5pc">
+            <svg width="30" height="60" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg"
+                class="wid-min-30 mar-rgt-30">
+                <polygon points="29 1, 1 29, 29 59" stroke="#ffdfbf" fill="#ffdfbf" fill-opacity="0" stroke-width="2" />
+            </svg>
+            <h2 class="txt-size-body lg-txt-size-h2 txt-ctr md-txt-lft">
+                {{ if intersect .Params.categories (slice "quotes") }}
+                {{ .Params.quote.attribution }}
+                {{ else }}
+                {{ .Title }}
+                {{ end }}
+            </h2>
+        </a>
+        {{ end }}
+    </div>
+    <div class="flx-grow wid-100pc md-wid-50pc hgt-100 {{ cond (eq $next nil) " dis-none md-dis-block" "" }}"> {{/* Hide
+        empty div only on mobile. Needed for proper spacing on desktop. */}}
+        {{ with $next }}
+        <a href="{{ .RelPermalink }}"
+            class="dis-flex flx-main-ctr md-flx-main-ctr flx-cross-ctr pad-rgt-30 wid-100pc hgt-100pc pad-20 txt-accent lnk-no-underline hov-bck-dark-lghtn-5pc">
+            <h2 class="txt-size-body lg-txt-size-h2 txt-ctr md-txt-rgt">
+                {{ if intersect .Params.categories (slice "quotes") }}
+                {{ .Params.quote.attribution }}
+                {{ else }}
+                {{ .Title }}
+                {{ end }}
+            </h2>
+            <svg width="30" height="60" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg"
+                class="wid-min-30 mar-lft-30">
+                <polygon points="1 1, 29 29, 1 59" stroke="#ffdfbf" fill="#ffdfbf" fill-opacity="0" stroke-width="2" />
+            </svg>
+        </a>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

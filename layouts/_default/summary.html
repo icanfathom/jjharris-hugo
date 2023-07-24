@@ -1,0 +1,70 @@
+{{ if eq .Kind "term" }}
+    <a href="{{ .RelPermalink }}" class="dis-block pad-20 wid-100pc md-wid-50pc-10 md-mar-x-alternating-10 mar-btm-20 bck-primary shd-md">
+        <h2>{{ humanize .Title }}</h2>
+    </a>
+{{ else }}
+    <article class="_post-summary dis-flex flx-wrap mar-btm-20 pad-20 wid-100pc bck-primary txt-size-compact shd-md">
+        <a href="{{ .RelPermalink }}" class="mar-lft-10 wid-100pc md-wid-140 txt-ctr">
+            <img src="{{ .Render "resolved-img" }}" alt="Header image" title="{{ humanize (index .Params.categories 0) }}" width="140">
+        </a>
+
+        {{ if intersect .Params.categories (slice "quotes") }}
+            <a href="{{ .RelPermalink }}" class="wid-1 flx-grow pad-y-10">
+                <blockquote class="mar-0 md-pad-x-30 pad-y-10 txt-size-blockquote txt-accent txt-italic">
+                    {{ .RawContent }}
+                </blockquote>
+                <div class="mar-x-20 mar-top-10 txt-light txt-rgt txt-italic">
+                    {{ .Params.quote.attribution }}
+                </div>
+            </a>
+        {{ else }}
+            {{ $dateRaw := default .PublishDate .Params.countdownDate }}
+            {{ $date := time $dateRaw }}
+            <a href="{{ .RelPermalink }}" class="dis-flex flx-col flx-main-ctr wid-100pc md-wid-1 flx-grow md-pad-x-30 pad-y-10">
+                <h1 class="mar-y-0 txt-ctr md-txt-lft">{{ .Title }}</h1>
+                
+                {{/* Mobile countdown date and normal date */}}
+                <div class="_date _countdown dis-flex md-dis-none mar-y-20" data-date="{{ $dateRaw }}" style="display: none;">
+                    <div>
+                        <span class="_time mar-rgt-6">{{ $date.Format "01" }}</span><span class="_time-category txt-size-xsm"></span>
+                    </div>
+                    <div class="_day">
+                        <span class="_time mar-rgt-6">{{ $date.Format "02" }}</span><span class="_time-category txt-size-xsm"></span>
+                    </div>
+                    <div>
+                        <span class="_time mar-rgt-6">{{ $date.Format "06" }}</span><span class="_time-category txt-size-xsm"></span>
+                    </div>
+                </div>
+                <div class="dis-block md-dis-none mar-y-20 pad-x-10 txt-accent txt-ctr bor-0 bor-accent bor-y-none bor-rgt-1">{{ $date.Format "2006 • 01 • 02" }}</div>
+                
+                <p class="mar-y-0 md-mar-top-8">{{ .Summary }}</p>
+            </a>
+
+            {{/* Desktop countdown date and normal date */}}
+            <div class="_date _countdown dis-none md-dis-flex" data-date="{{ $dateRaw }}" style="display: none;">
+                <div>
+                    <span class="_time mar-rgt-6">{{ $date.Format "01" }}</span><span class="_time-category txt-size-xsm"></span>
+                </div>
+                <div class="_day">
+                    <span class="_time mar-rgt-6">{{ $date.Format "02" }}</span><span class="_time-category txt-size-xsm"></span>
+                </div>
+                <div>
+                    <span class="_time mar-rgt-6">{{ $date.Format "06" }}</span><span class="_time-category txt-size-xsm"></span>
+                </div>
+            </div>
+            <div class="_date dis-none md-dis-flex">
+                <div class="_month">
+                    <span class="_complex">{{ $date.Format "Jan" }}</span>
+                    <span class="_simple">{{ $date.Format "01" }}</span>
+                </div>
+                <div class="_day">
+                    <span>{{ $date.Format "02" }}</span>
+                </div>
+                <div class="_year">
+                    <span class="_complex">{{ $date.Format "2006" }}</span>
+                    <span class="_simple">{{ $date.Format "06" }}</span>
+                </div>
+            </div>
+        {{ end }}
+    </article>
+{{ end }}

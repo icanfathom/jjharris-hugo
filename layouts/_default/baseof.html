@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ $.Site.LanguageCode | default " en" }}">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    <meta name="description" content="Write and live like a novelist">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#007982">
+    <title>
+        {{ block "title" . }}
+            {{ print .Title " - " .Site.Title }}
+        {{ end }}
+    </title>
+    
+    <link rel="icon" type="image/png" href="/uploads/favicon.png">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,300;0,500;1,200;1,300&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script src="/script.js"></script>
+    {{ block "head-extra" . }}
+    {{ end }}
+</head>
+
+<body class="dis-flex flx-col flx-cross-ctr mar-0 wid-100pc bck-fill txt-light _{{ print .Page.Section }} _{{ print .Page.Kind }}" onload="run();">
+    <h1 class="dis-none print-dis-none">{{ .Site.Title }}</h1>
+    <h2 class="dis-none print-dis-none">{{ .Site.Params.description }}</h2>
+
+    {{ .Render "nav" }}
+
+    <main class="wid-100pc wid-max-xlg pad-top-80 md-pad-top-40 pad-btm-40 pad-x-14 md-pad-x-20">
+        {{ block "main" . }} {{ end }}
+    </main>
+
+    {{ block "after-main" . }} {{ end }}
+
+    <footer class="pos-abs pos-btm-0 wid-100pc pad-top-4">
+        <div class="dis-flex flx-col flx-cross-ctr wid-100pc pad-top-20 bck-dark">
+            <div class="dis-flex flx-wrap wid-100pc wid-max-xlg">
+                <div class="wid-100pc lg-wid-66pc pad-20">
+                    <a href="/pages/contact"><h2 class="mar-btm-10">Contact me</h2></a>
+                    <a href="https://www.facebook.com/authorjosephharris" target="_blank"><img src="/uploads/facebook.svg" alt="" height="50" class="mar-rgt-10"></a>
+                    <a href="https://twitter.com/_jjharris" target="_blank"><img src="/uploads/twitter.svg" alt="" height="40" class="mar-rgt-10"></a>
+                    <a href="/rss"><img src="/uploads/rss.svg" alt="" height="40" class="mar-rgt-10"></a>
+                </div>
+                {{ if false }}
+                <div class="wid-100pc lg-wid-33pc hgt-100pc pad-20">
+                    <h2 class="mar-btm-10">Subscribe</h2>
+                </div>
+                {{ end }}
+                <div class="wid-100pc lg-wid-33pc pad-20">
+                    <h2 class="mar-btm-10">Search</h2>
+                    <input type="text" class="_search wid-100pc" placeholder="...">
+                </div>
+            </div>
+        </div>
+        <div class="dis-flex flx-col flx-main-ctr flx-cross-ctr bck-dark txt-size-sm txt-light ovr-hidden">
+            <div class="wid-xlg wid-max-100pc pad-20">
+                © Copyright {{ print .Site.Params.author ", " (now.Format "2006") }}
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+<img
+  src="{{ .Get "src" }}"
+  alt="{{ .Get "alt" }}"
+  width="{{ .Get "width" }}"
+  style="{{ with .Get "float" }}float: {{ . }}; margin: 20px; margin-{{ . }}: 0; {{ end }}{{ .Get "style" }}"
+  class="{{ if eq (.Get "border") "true" }}bor-4 bor-primary{{ end }}"
+>

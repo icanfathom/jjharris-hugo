@@ -1,0 +1,69 @@
+{{ define "head-extra" }}
+    <meta name="description" content="{{ .Summary }}">
+
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Summary }}" />
+    <meta property="og:image" content="{{ print .Site.BaseURL (.Render "resolved-img-cover") }}" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:article:published_time" content="{{ .Date }}" />
+    <meta property="og:article:author" content="{{ .Site.Params.author }}" />
+    <meta property="og:article:section" content="{{ humanize (index .Params.categories 0) }}" />
+
+    <meta property="twitter:url" content="{{ .Permalink }}">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@_jjharris" />
+    <meta name="twitter:title" content="{{ .Title }}" />
+    <meta name="twitter:description" content="{{ .Summary }}" />
+{{ end }}
+
+{{ define "main" }}
+    {{ if intersect .Params.categories (slice "quotes") }}
+        <div class="dis-flex flx-col flx-main-ctr flx-cross-ctr hgt-200 mar-top-20 print-txt-ctr">
+            <img src="{{ .Render "resolved-img" }}" alt="" height="150" width="150">
+        </div>
+        <article class="txt-light dis-flex flx-col flx-cross-ctr mar-btm-50">
+            <div class="_article-content wid-100pc wid-max-md">
+                <blockquote>
+                    {{ .Content }}
+                </blockquote>
+                <div class="mar-top-50 txt-rgt txt-italic">
+                    {{ .Params.quote.attribution }}
+                </div>
+            </div>
+        </article>
+    {{ else }}
+        <div class="dis-flex flx-col flx-main-ctr flx-cross-ctr hgt-300 mar-top-20 print-txt-ctr">
+            <img src="{{ .Render "resolved-img" }}" alt="" height="250" width="250">
+        </div>
+        <article class="txt-light dis-flex flx-col flx-cross-ctr pad-btm-40">
+            <h1 class="wid-100pc md-wid-50pc mar-pos-top-0 mar-btm-50 txt-ctr txt-size-xlg">{{ .Title }}</h1>
+            {{ .Render "post-meta" }}
+            <div class="_article-content wid-100pc wid-max-md">
+                {{ .Content }}
+            </div>
+        </article>
+    {{ end }}
+{{ end }}
+
+{{ define "after-main" }}
+    {{ if intersect .Params.categories (slice "quotes") }}
+        {{ .Render "series-nav" }}
+
+        {{ .Render "section-nav" }}
+
+        {{ .Render "comments" }}
+    {{ else }}
+        {{ .Render "series-nav" }}
+
+        {{ .Render "section-nav" }}
+
+        {{ .Render "related-nav" }}
+
+        {{ .Render "comments" }}
+    {{ end }}
+{{ end }}

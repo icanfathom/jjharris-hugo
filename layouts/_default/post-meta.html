@@ -1,0 +1,36 @@
+{{ if intersect .Params.categories (slice "events") }}
+    <div class="dis-flex flx-main-ctr flx-wrap mar-btm-20">
+        <div class="mar-6 pad-x-10 pad-y-6 bck-primary txt-accent txt-ctr">
+            <img src="/uploads/date.svg" alt="" class="mar-rgt-4 ver-txt-btm">
+            {{ $date := time (default .PublishDate .Params.countdownDate) }}
+            {{ $date.Format "3:04 pm (CST) on January 2, 2006" }}
+        </div>
+        {{ with .Params.categories }}
+        <div class="mar-6 pad-x-10 pad-y-6 bck-primary txt-accent txt-ctr">
+            <img src="/uploads/category.svg" alt="" class="mar-rgt-4 ver-txt-btm">
+            <a href="/categories/{{ urlize (index . 0) }}">{{ humanize (index . 0) }}</a>
+        </div>
+        {{ end }}
+    </div>
+{{ else }}
+    <div class="dis-flex flx-main-ctr flx-wrap mar-btm-20">
+        <div class="dis-flex flx-gap-2 mar-6 pad-x-10 pad-y-6 bck-primary txt-accent txt-ctr">
+            <img src="/uploads/date.svg" alt="">
+            <span class="flx-shrink-0">
+                {{ .PublishDate.Format "January 2, 2006" }}
+            </span>
+        </div>
+        {{ with .Params.categories }}
+        <div class="dis-flex flx-gap-2 mar-6 pad-x-10 pad-y-6 bck-primary txt-accent txt-ctr">
+            <img src="/uploads/category.svg" alt="">
+            <a href="/categories/{{ urlize (index . 0) }}" class="flx-shrink-0">{{ humanize (index . 0) }}</a>
+        </div>
+        {{ end }}
+        <div class="dis-flex flx-gap-2 mar-6 pad-x-10 pad-y-6 bck-primary txt-accent txt-ctr">
+            <img src="/uploads/time.svg" alt="">
+            <span class="flx-shrink-0">
+                {{ .ReadingTime }} minutes
+            </span>
+        </div>
+    </div>
+{{ end }}

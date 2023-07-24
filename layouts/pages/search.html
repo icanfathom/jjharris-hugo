@@ -1,0 +1,35 @@
+{{ define "main" }}
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <script>
+        let database = [];
+        {{ range .Site.RegularPages }}
+            extra = [];
+            extra.push.apply(extra, '{{ .Params.quote.attribution }}'.split(' ')); //Quote source
+
+            database.push({
+                title: '{{ .Title }}',
+                url: '{{ .RelPermalink }}',
+                content: '{{ .RawContent }}',
+                category: '{{ index .Params.categories 0 }}',
+                extra: extra
+            });
+        {{ end }}
+
+        let index = lunr(function () {
+            this.ref('url');
+            this.field('title');
+            this.field('content');
+            this.field('category');
+            this.field('extra');
+          
+            database.forEach(function (doc) {
+              this.add(doc);
+            }, this);
+        });
+    </script>
+
+    <h1 class="txt-size-xlg mar-btm-20">{{ .Title }}</h1>
+    <input class="wid-100pc" type="text" name="search" id="search" placeholder="Search">
+    <div class="_loading mar-top-10"></div>
+    <div class="_results mar-top-20 "></div>
+{{ end }}

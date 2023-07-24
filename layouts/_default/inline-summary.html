@@ -1,0 +1,11 @@
+<a href="{{ .Page.RelPermalink }}" class="dis-block">
+    <div class="dis-flex flx-cross-ctr pad-16 bck-dark">
+        <div class="wid-70 mar-rgt-10 flx-shrink-0">
+            <img src="{{ .Render "resolved-img" }}" alt="" class="wid-60">
+        </div>
+        <div class="flx-grow">
+            <div class="mar-btm-4 txt-size-sm">{{ .Page.Title }}</div>
+            <div class="txt-size-xsm txt-light txt-italic">{{ .Page.PublishDate.Format "2006 • 01 • 02" }}</div>
+        </div>
+    </div>
+</a>

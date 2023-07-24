@@ -1,0 +1,60 @@
+{
+  "baseURL": "https://www.jjharris.me",
+  "languageCode": "en-us",
+  "title": "Joseph Harris",
+  "params": {
+    "author": "Joseph Harris",
+    "description": "Desc here",
+    "bio": "My bio here"
+  },
+  "staticDir": [
+    "static",
+    "assets/dist"
+  ],
+  "enableEmoji": true,
+  "paginate": 8,
+  "taxonomies": {
+    "category": "categories",
+    "series": "series"
+  },
+  "markup": {
+    "goldmark": {
+      "renderer": {
+        "unsafe": true
+      }
+    },
+    "highlight": {
+      "style": "solarized-dark"
+    }
+  },
+  "menu": {
+    "main1": [
+      {
+        "url": "/",
+        "name": "Home",
+        "title": "home",
+        "weight": 1,
+        "identifier": "home"
+      }
+    ]
+  },
+  "related": {
+    "includeNewer": true,
+    "indices": [
+      {
+        "name": "keywords",
+        "weight": 100
+      },
+      {
+        "name": "categories",
+        "weight": 80
+      },
+      {
+        "name": "date",
+        "weight": 10
+      }
+    ],
+    "threshold": 80,
+    "toLower": false
+  }
+}

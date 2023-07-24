@@ -1,0 +1,8 @@
+<div class="_legend wid-100pc wid-max-md bck-dark pad-20 bor-2 bor-accent">
+    <h2 class="hgt-35 txt-ctr ovr-hidden">Legend</h2>
+    <div class="dis-flex flx-wrap flx-main-ctr">
+        {{ range $.Page.Params.highlights }}
+            <span class="_highlight {{ urlize .color }} mar-x-10" data-class="{{ .class }}">{{ .caption }}</span>
+        {{ end }}
+    </div>
+</div>

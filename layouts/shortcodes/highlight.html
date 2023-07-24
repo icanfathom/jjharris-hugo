@@ -1,0 +1,2 @@
+{{ $highlightData := index (where $.Page.Params.highlights "class" (.Get 0)) 0 }}
+<span class="_highlight {{ urlize (index $highlightData "color") }}" title="{{ index $highlightData "caption" }}" data-class="{{ index $highlightData "class" }}">{{ .Inner }}</span>

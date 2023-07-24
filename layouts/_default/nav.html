@@ -1,0 +1,49 @@
+{{/* Mobile menu */}}
+<nav class="_mobile md-dis-none pos-fixed pos-top-0 wid-100pc">
+    <div class="_shade pos-abs wid-100v hgt-100v"></div>
+    <div class="_wrapper dis-flex flx-col">
+        <span class="_icon pos-abs"></span>
+        <a href="/" class="dis-flex">
+            <div class="_well flx-shrink-0 bck-primary"></div>
+            <span href="/" class="_header-text flx-grow bck-primary txt-accent">{{ .Site.Params.author }}</span>
+        </a>
+        <div class="_content wid-100pc pad-y-10 bck-dark">
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.main1 }}
+                <a href="{{ .URL }}" class="dis-block pad-16 hov-bck-fill-darken-5pc txt-ctr">{{ .Name }}</a>
+            {{ end }}
+            {{ range .Site.Menus.main2 }}
+                <a href="{{ .URL }}" class="dis-block pad-16 hov-bck-fill-darken-5pc txt-ctr">{{ .Name }}</a>
+            {{ end }}
+        </div>
+        <div class="_collapser wid-100pc flx-grow"></div>
+    </div>
+</nav>
+
+{{/* Desktop menu */}}
+<nav class="_desktop dis-none md-dis-flex wid-100pc flx-self-cross-start ovr-hidden print-dis-none {{ if eq .Page.Kind "page" }}pos-sticky pos-top-0{{ end }}">
+    <a href="/" class="_icon"></a>
+    <div class="_left dis-flex bck-dark ovr-hidden">
+        {{ $currentPage := . }}
+        {{ range .Site.Menus.main1 }}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+        {{ end }}
+        <span class="_border"></span>
+    </div>
+    <div class="_middle flx-grow"></div>
+    <div class="_right dis-flex flx-main-end bck-dark ovr-hidden">
+        {{ range .Site.Menus.main2 }}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+        {{ end }}
+        <span class="_border"></span>
+    </div>
+    <div class="_well">
+        <div class="_first">
+            <div class="_progress"></div>
+        </div>
+        <div class="_last">
+            <div class="_progress"></div>
+        </div>
+    </div>
+    <div class="_shadow"></div>
+</nav>

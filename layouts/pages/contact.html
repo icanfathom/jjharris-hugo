@@ -1,0 +1,26 @@
+{{ define "main" }}
+    <h1 class="txt-size-xlg mar-btm-20">{{ .Title }}</h1>
+    {{ .Content }}
+
+    <hr class="mar-top-50 mar-btm-50">
+
+    <div class="_send">
+        <div class="mar-btm-20">
+            <input type="text" id="name" name="name" placeholder="Name" autocomplete="name">
+        </div>
+        <div class="mar-btm-20">
+            <input type="email" id="email" name="email" placeholder="Email" autocomplete="email">
+        </div>
+        <div class="mar-btm-20">
+            <input type="text" id="subject" name="subject" placeholder="Subject" autocomplete="off">
+        </div>
+        <div class="mar-btm-20">
+            <textarea name="message" id="message" class="wid-100pc hgt-200" placeholder="Message" autocomplete="off"></textarea>
+        </div>
+        <button id="submit">Send</button>
+    </div>
+    <div class="_sent-msg dis-none">
+        <h2>Thank you</h2>
+        <p>Your message has been sent.</p>
+    </div>
+{{ end }}

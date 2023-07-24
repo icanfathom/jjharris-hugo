@@ -1,0 +1,26 @@
+{{ define "main" }}
+    <header>
+        <h1 class="txt-size-xlg">{{ humanize .Title }}</h1>
+        {{ with .Params.subtitle }}
+            <span>{{ . }}</span>
+        {{ end }}
+    </header>
+
+    <div class="dis-flex flx-wrap mar-top-20">
+        <div class="wid-100pc lg-wid-70pc-20 lg-mar-rgt-20">
+            <div>
+                {{.Content}}
+            </div>
+
+            {{ $paginator := .Paginate .Pages }}
+            {{ range .Paginator.Pages }}
+                {{ .Render "summary" }}
+            {{ end }}
+
+            {{ .Render "paginator" }}
+        </div>
+
+        {{ .Render "right-sidebar" }}
+    </div>
+
+{{ end }}

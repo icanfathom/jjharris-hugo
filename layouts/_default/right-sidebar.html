@@ -1,0 +1,84 @@
+<div class="wid-100pc lg-wid-30pc">
+    <!-- Bio -->
+    <div class="pad-20 bck-dark mar-btm-20 mar-last-0 txt-size-sm">
+        <a href="/pages/about">
+            <img src="/uploads/profile b.jpg" alt="" class="wid-100pc wid-max-360 mar-btm-10 bor-4 bor-primary">
+        </a>
+        <div class="txt-size-xsm">{{ .Site.Params.bio }}</div>
+    </div>
+
+    <!-- Subscribe -->
+    <div class="bck-dark mar-btm-20 mar-last-0 pad-20">
+        <h2 class="mar-btm-10">Subscribe</h2>
+        <a href="https://jjharris.substack.com/">
+            <button class="wid-100pc">Subscribe on Substack</button>
+        </a>
+    </div>
+
+    <!-- Social -->
+    <div class="pad-20 bck-dark mar-btm-20 mar-last-0">
+        <h2 class="mar-btm-10">Social</h2>
+        <a href="https://www.facebook.com/authorjosephharris" target="_blank" class="dis-block">
+            <div class="dis-flex flx-cross-ctr pad-8 bck-dark">
+                <div class="dis-flex flx-main-ctr wid-50 mar-rgt-6 flx-shrink-0">
+                    <img src="/uploads/facebook.svg" alt="" height="50">
+                </div>
+                <div class="txt-blue">facebook</div>
+            </div>
+        </a>
+        <a href="https://twitter.com/_jjharris" target="_blank" class="dis-block">
+            <div class="dis-flex flx-cross-ctr pad-8 bck-dark">
+                <div class="dis-flex flx-main-ctr wid-50 mar-rgt-6 flx-shrink-0">
+                    <img src="/uploads/twitter.svg" alt="" height="37">
+                </div>
+                <div class="txt-blue">twitter</div>
+            </div>
+        </a>
+        <a href="/rss" class="dis-block">
+            <div class="dis-flex flx-cross-ctr pad-8 bck-dark">
+                <div class="dis-flex flx-main-ctr wid-50 mar-rgt-6 flx-shrink-0">
+                    <img src="/uploads/rss.svg" alt="" width="38">
+                </div>
+                <div class="txt-blue">rss</div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Categories -->
+    {{ $numCat := len .Site.Taxonomies.categories }}
+    {{ if gt $numCat 0 }}
+        <div class="pad-20 bck-dark mar-btm-20 mar-last-0">
+            <a href="/categories"><h2 class="mar-btm-10">Categories</h2></a>
+            {{ range sort .Site.Taxonomies.categories nil "desc" }}
+                <div class="mar-btm-8 mar-last-0 {{ cond (gt $numCat 10) "dis-inline-block" "" }}">
+                    <a href="{{ .Page.RelPermalink }}" class="dis-inline-block pad-x-14 pad-y-6 pad-rgt-20 bck-primary txt-light">
+                        {{ humanize .Page.Title }}
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
+    
+    <!-- Series -->
+    {{ $numSeries := len .Site.Taxonomies.series }}
+    {{ if gt $numSeries 0 }}
+        <div class="pad-20 bck-dark mar-btm-20 mar-last-0">
+            <a href="/series"><h2 class="mar-btm-10">Series</h2></a>
+            {{ range .Site.Taxonomies.series }}
+                <div class="mar-btm-8 mar-last-0 {{ cond (gt $numSeries 10) "dis-inline-block" "" }}">
+                    <a href="{{ .Page.RelPermalink }}" class="dis-inline-block pad-x-14 pad-y-6 pad-rgt-20 bck-primary txt-light">
+                        {{ humanize .Page.Title }}
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
+    
+    <!-- Recent -->
+    <div class="pad-16 bck-dark mar-btm-20 mar-last-0">
+        <h2 class="mar-btm-10">Recent</h2>
+        {{ range first 5 (where (where .Site.Pages "Kind" "eq" "page") "Section" "in" (slice "posts" "quotes")) }}
+            {{ .Render "inline-summary" }}
+        {{ end }}
+    </div>
+</div>
